@@ -24,7 +24,7 @@ public class NovaEmpresaServlet extends HttpServlet {
 		System.out.println("Cadastrando empresa!!");
 		
 		//metodo usado por padrão GET, passagens de parametros pela uri
-		String nomeEmpresa = request.getParameter("nome");
+		String nomeEmpresa = request.getParameter("nomeEmpresa");
 		
 		PrintWriter out = response.getWriter();
 		out.println("<html><body>Nova empresa "+nomeEmpresa+", cadastrada com sucesso!</body></html>");
