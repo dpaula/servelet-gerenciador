@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.lima.dao.EmpresaDao;
+import br.com.lima.model.Empresa;
+
 /**
  * Servlet implementation class NovaEmpresaServlet
  */
@@ -26,8 +29,15 @@ public class NovaEmpresaServlet extends HttpServlet {
 		//metodo usado por padrão GET, passagens de parametros pela uri
 		String nomeEmpresa = request.getParameter("nomeEmpresa");
 		
+		
 		PrintWriter out = response.getWriter();
 		out.println("<html><body>Nova empresa "+nomeEmpresa+", cadastrada com sucesso!</body></html>");
+
+		if(nomeEmpresa != null && !nomeEmpresa.equals("")) {
+			
+			EmpresaDao dao = new EmpresaDao();
+			dao.insereEmpresa(new Empresa().setNome(nomeEmpresa));
+		}
 	}
 
 }
