@@ -8,7 +8,11 @@ import br.com.lima.util.JPAUtil;
 public class EmpresaDao {
 
 	public void insereEmpresa(Empresa empresa) {
-
+		
+		if(empresa == null || "".equals(empresa.getNome())) {
+			throw new IllegalArgumentException("Empresa");
+		}
+		
 		EntityManager em = JPAUtil.getInstance().getEntityManager();
 		
 		em.getTransaction().begin();

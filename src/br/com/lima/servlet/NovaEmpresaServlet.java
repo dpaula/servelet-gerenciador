@@ -1,8 +1,8 @@
 package br.com.lima.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,25 +19,23 @@ import br.com.lima.model.Empresa;
 public class NovaEmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		System.out.println("Cadastrando empresa!!");
-		
-		//metodo usado por padrão GET, passagens de parametros pela uri
-		String nomeEmpresa = request.getParameter("nomeEmpresa");
-		
-		
-		PrintWriter out = response.getWriter();
-		out.println("<html><body>Nova empresa "+nomeEmpresa+", cadastrada com sucesso!</body></html>");
 
-		if(nomeEmpresa != null && !nomeEmpresa.equals("")) {
-			
-			EmpresaDao dao = new EmpresaDao();
-			dao.insereEmpresa(new Empresa().setNome(nomeEmpresa));
-		}
+		// metodo usado por padrão GET, passagens de parametros pela uri
+		String nomeEmpresa = request.getParameter("nomeEmpresa");
+
+		EmpresaDao dao = new EmpresaDao();
+		Empresa empresa = new Empresa().setNome(nomeEmpresa);
+		dao.insereEmpresa(empresa);
+		
+		request.setAttribute("nomeEmpresa", nomeEmpresa);
+		
+		//criando um redirecionamento para a pagina jsp
+		RequestDispatcher rd = request.getRequestDispatcher("/novaEmpresa.jsp");
+		rd.forward(request, response);
 	}
 
 }
