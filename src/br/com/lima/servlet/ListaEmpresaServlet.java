@@ -1,11 +1,11 @@
 package br.com.lima.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +35,6 @@ public class ListaEmpresaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
 		
 		//TRAZENDO TODAS AS EMPRESAS DO BANCO
 		EntityManager em = JPAUtil.getInstance().getEntityManager();
@@ -45,15 +44,12 @@ public class ListaEmpresaServlet extends HttpServlet {
 		TypedQuery<Empresa> query = em.createQuery(jpql, Empresa.class);
 		List<Empresa> empresas = query.getResultList();
 		
-		out.println("<html><body>");
-		out.println("<ul>");
+		//setando as empresas no request para ser usado na pagina jsp que será redirecionada
+		request.setAttribute("empresas", empresas);
 		
-		//imprimindo as empresas em uma lista
-		for (Empresa empresa : empresas) {
-			out.println("<li>"+empresa.getNome()+"</li>");
-		}
-		out.println("</ul>");
-		out.println("</body></html>");
+		//fazendo redirecionamento para pagina jsp
+		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");
+		rd.forward(request, response);
 		
 	}
 

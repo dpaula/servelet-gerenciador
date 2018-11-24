@@ -7,12 +7,8 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%
-	EntityManager em = JPAUtil.getInstance().getEntityManager();
-	String jpql = "select e from Empresa e";
-
-	//usando TypedQuery para trazer a lista já com a tipagem correga
-	TypedQuery<Empresa> query = em.createQuery(jpql, Empresa.class);
-	List<Empresa> empresas = query.getResultList();
+    //trazendo a lista de empresas que foi setado no servlet
+	List<Empresa> empresas = (List<Empresa>) request.getAttribute("empresas");
 %>
 
 <!DOCTYPE html>
