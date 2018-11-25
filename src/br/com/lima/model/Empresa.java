@@ -29,9 +29,11 @@ public class Empresa {
 
 	/**
 	 * @param id the id to set
+	 * @return 
 	 */
-	public void setId(Integer id) {
+	public Empresa setId(Integer id) {
 		Id = id;
+		return this;
 	}
 
 	/**

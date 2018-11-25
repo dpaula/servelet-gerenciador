@@ -100,4 +100,22 @@ public class EmpresaDao {
 		
 	}
 
+	public void alteraEmpresa(Empresa empresaNova) {
+		
+		EntityManager em = JPAUtil.getInstance().getEntityManager();
+		em.getTransaction().begin();
+		
+		// primeiro busca a empresa pelo id
+		Empresa empresa = em.find(Empresa.class, empresaNova.getId());
+		// ao setar novos valores, os mesmos já serão persistidos
+		empresa.setNome(empresaNova.getNome())
+		.setData(empresaNova.getData());
+		
+		// comitando e fechando a transação
+		em.getTransaction().commit();
+		em.close();
+		
+		
+	}
+
 }
