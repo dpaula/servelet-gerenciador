@@ -22,6 +22,18 @@
 <title>Java Standard TagLib</title>
 </head>
 <body>
+
+<!-- 		fazendo um if null com expression language						 -->
+		<c:if test="${not empty nomeEmpresa }">
+	<!-- 		Usando linguagem de expressão para imprimir a variável que foi setada no request do servlet -->
+			Nova Empresa: ${ nomeEmpresa } cadastrada com sucesso!
+		</c:if>
+		<c:if test="${empty nomeEmpresa }">
+	<!-- 		Usando linguagem de expressão para imprimir a variável que foi setada no request do servlet -->
+			Empresa: ${ nomeEmpresa } já cadastrada!
+		</c:if>
+		<br>
+
 	Lista Empresas: <br>
 	
 

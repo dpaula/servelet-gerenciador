@@ -16,6 +16,7 @@ public class Empresa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 	private String nome;
+	//usando anotacao para identificar o atributo como data na tabela
 	@Temporal(TemporalType.DATE)
 	private Date data;
 

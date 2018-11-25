@@ -29,13 +29,16 @@ public class NovaEmpresaServlet extends HttpServlet {
 
 		// metodo usado por padrão GET, passagens de parametros pela uri
 		String nomeEmpresa = request.getParameter("nomeEmpresa");
+		//todo atributo de parametro vem como string
 		String data = request.getParameter("data");
 		
 		Date dataP = null;
 		
 		try {
+			//fazendo o parse da data string para java.util.Date
 			dataP = new SimpleDateFormat("yyyy-MM-dd").parse(data);
 		} catch (ParseException e) {
+			//relançando a exceção para não perder
 			throw new ServletException(e);
 		}
 
@@ -51,7 +54,7 @@ public class NovaEmpresaServlet extends HttpServlet {
 		
 		
 		//criando um redirecionamento para a pagina jsp
-		RequestDispatcher rd = request.getRequestDispatcher("/novaEmpresa.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresa");
 		rd.forward(request, response);
 	}
 
