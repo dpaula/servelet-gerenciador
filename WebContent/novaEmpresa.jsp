@@ -4,7 +4,7 @@
 <!--     scriptLet -->
 <%
 	//este atributo foi setado no request do servlet que chama esta pagina jsp, 
-	String novaEmpresa = (String) request.getAttribute("nomeEmpresa");
+	//String novaEmpresa = (String) request.getAttribute("nomeEmpresa");
 %>
 
 <!DOCTYPE html>
@@ -13,12 +13,12 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+
 <body>
 
 	<h2>
-		Nova Empresa:
-		<%=novaEmpresa%>
-		cadastrada com sucesso!
+<!-- 		Usando linguagem de expressão para imprimir a variável que foi setada no request do servlet -->
+		Nova Empresa: ${ nomeEmpresa } cadastrada com sucesso!
 
 	</h2>
 
