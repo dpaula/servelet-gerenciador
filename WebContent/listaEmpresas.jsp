@@ -11,6 +11,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- url monta o caminho completo com contexto dinamico, definindo em uma variavel -->
 <c:url value="/removeEmpresa" var="linkServletRemoveEmpresa" />
+<c:url value="/mostraEmpresa" var="linkServletMostraEmpresa" />
 
 <%
 	//trazendo a lista de empresas que foi setado no servlet
@@ -45,6 +46,7 @@
 			<li>${empresa.nome}- <!-- 			usando formatação de data, trazendo a data do objeto, q é tipo java.util.Date e passando um padrão -->
 				<fmt:formatDate value="${empresa.data }" pattern="dd/MM/yyyy" />
 				<a href="${linkServletRemoveEmpresa }?id=${empresa.id}">Remover</a>
+				<a href="${linkServletMostraEmpresa }?id=${empresa.id}">Alterar</a>
 			</li>
 
 		</c:forEach>

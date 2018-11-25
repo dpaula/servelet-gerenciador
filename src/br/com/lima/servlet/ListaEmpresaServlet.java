@@ -1,10 +1,7 @@
 package br.com.lima.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.lima.model.Empresa;
-import br.com.lima.util.JPAUtil;
+import br.com.lima.dao.EmpresaDao;
 
 /**
  * Servlet implementation class ListaEmpresaServlet
@@ -32,18 +28,9 @@ public class ListaEmpresaServlet extends HttpServlet {
 
     @Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		
-		//TRAZENDO TODAS AS EMPRESAS DO BANCO
-		EntityManager em = JPAUtil.getInstance().getEntityManager();
-		String jpql = "select e from Empresa e";
-		
-		//usando TypedQuery para trazer a lista já com a tipagem correga
-		TypedQuery<Empresa> query = em.createQuery(jpql, Empresa.class);
-		List<Empresa> empresas = query.getResultList();
 		
 		//setando as empresas no request para ser usado na pagina jsp que será redirecionada
-		request.setAttribute("empresas", empresas);
+		request.setAttribute("empresas", new EmpresaDao().retornaEmpresas());
 		
 		//fazendo redirecionamento para pagina jsp
 		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");

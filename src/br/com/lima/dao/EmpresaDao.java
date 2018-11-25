@@ -1,5 +1,7 @@
 package br.com.lima.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -21,16 +23,16 @@ public class EmpresaDao {
 			return false;
 		}
 
-		//criando um entityManager para as transacoes
+		// criando um entityManager para as transacoes
 		EntityManager em = JPAUtil.getInstance().getEntityManager();
 
-		//iniciando uma transação
+		// iniciando uma transação
 		em.getTransaction().begin();
 
-		//persistindo a entidade na base
+		// persistindo a entidade na base
 		em.persist(empresa);
 
-		//comitando e fechando a transação
+		// comitando e fechando a transação
 		em.getTransaction().commit();
 		em.close();
 
@@ -43,11 +45,13 @@ public class EmpresaDao {
 		Empresa empresa = null;
 		em.getTransaction().begin();
 
-		//criando uma consulta para trazer a empresa pelo nome, definindo que virá um objeto unico do tipo Empresa
+		// criando uma consulta para trazer a empresa pelo nome, definindo que virá um
+		// objeto unico do tipo Empresa
 		TypedQuery<Empresa> query = em.createQuery("select e from Empresa e where e.nome = :pNome", Empresa.class);
-		//setando um parametro
+		// setando um parametro
 		query.setParameter("pNome", nome);
-		//fazendo o tratamento pois, se não achar resultado, será lançada uma exceção NoResultException
+		// fazendo o tratamento pois, se não achar resultado, será lançada uma exceção
+		// NoResultException
 		try {
 			empresa = query.getSingleResult();
 		} catch (NoResultException e) {
@@ -57,19 +61,43 @@ public class EmpresaDao {
 		return empresa;
 	}
 
-	public void removeEmpresa(Integer id) {
+	public void removeEmpresaPorId(Integer id) {
+		EntityManager em = JPAUtil.getInstance().getEntityManager();
+		em.getTransaction().begin();
+
+		// primeiro busca a empresa pelo id
+		Empresa empresa = em.find(Empresa.class, id);
+		// depois basta usar o EntityManager para remover
+		em.remove(empresa);
+
+		// comitando e fechando a transação
+		em.getTransaction().commit();
+		em.close();
+	}
+
+	public List<Empresa> retornaEmpresas() {
+
+		// TRAZENDO TODAS AS EMPRESAS DO BANCO
+		EntityManager em = JPAUtil.getInstance().getEntityManager();
+		String jpql = "select e from Empresa e";
+
+		// usando TypedQuery para trazer a lista já com a tipagem correga
+		TypedQuery<Empresa> query = em.createQuery(jpql, Empresa.class);
+		return query.getResultList();
+	}
+
+	public Empresa retornaEmpresaPorId(Integer id) {
 		EntityManager em = JPAUtil.getInstance().getEntityManager();
 		em.getTransaction().begin();
 		
-		//primeiro busca a empresa pelo id
-		Empresa empresa = em.find(Empresa.class, id);
-		//depois basta usar o EntityManager para remover
-		em.remove(empresa);
+		Empresa empresa = null;
 		
-		
-		//comitando e fechando a transação
-		em.getTransaction().commit();
+		// primeiro busca a empresa pelo id
+		empresa = em.find(Empresa.class, id);
 		em.close();
+		
+		return empresa;
+		
 	}
 
 }
