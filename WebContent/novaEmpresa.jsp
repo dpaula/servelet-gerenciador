@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
+<!-- 	core da jstl é voltado par controle de fluxo -->
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 
 <!--     scriptLet -->
 <%
@@ -17,8 +20,16 @@
 <body>
 
 	<h2>
-<!-- 		Usando linguagem de expressão para imprimir a variável que foi setada no request do servlet -->
-		Nova Empresa: ${ nomeEmpresa } cadastrada com sucesso!
+<!-- 		fazendo um if null com expression language						 -->
+		<c:if test="${not empty nomeEmpresa }">
+	<!-- 		Usando linguagem de expressão para imprimir a variável que foi setada no request do servlet -->
+			Nova Empresa: ${ nomeEmpresa } cadastrada com sucesso!
+		</c:if>
+		<c:if test="${empty nomeEmpresa }">
+	<!-- 		Usando linguagem de expressão para imprimir a variável que foi setada no request do servlet -->
+			Empresa: ${ nomeEmpresa } já cadastrada!
+		</c:if>
+
 
 	</h2>
 

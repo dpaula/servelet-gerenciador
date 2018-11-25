@@ -5,6 +5,7 @@
 <%@page import="br.com.lima.util.JPAUtil"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<!-- 	core da jstl é voltado par controle de fluxo -->
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
@@ -16,7 +17,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Java Standard TagLib</title>
 </head>
 <body>
 	Lista Empresas: <br>

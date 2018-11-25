@@ -29,9 +29,12 @@ public class NovaEmpresaServlet extends HttpServlet {
 
 		EmpresaDao dao = new EmpresaDao();
 		Empresa empresa = new Empresa().setNome(nomeEmpresa);
-		dao.insereEmpresa(empresa);
+		if(dao.insereEmpresa(empresa)) {
+			request.setAttribute("nomeEmpresa", nomeEmpresa);
+		}else {
+			request.setAttribute("nomeEmpresa", null);
+		}
 		
-		request.setAttribute("nomeEmpresa", nomeEmpresa);
 		
 		//criando um redirecionamento para a pagina jsp
 		RequestDispatcher rd = request.getRequestDispatcher("/novaEmpresa.jsp");
