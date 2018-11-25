@@ -1,6 +1,9 @@
 package br.com.lima.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,9 +29,20 @@ public class NovaEmpresaServlet extends HttpServlet {
 
 		// metodo usado por padrão GET, passagens de parametros pela uri
 		String nomeEmpresa = request.getParameter("nomeEmpresa");
+		String data = request.getParameter("data");
+		
+		Date dataP = null;
+		
+		try {
+			dataP = new SimpleDateFormat("yyyy-MM-dd").parse(data);
+		} catch (ParseException e) {
+			throw new ServletException(e);
+		}
 
 		EmpresaDao dao = new EmpresaDao();
-		Empresa empresa = new Empresa().setNome(nomeEmpresa);
+		Empresa empresa = new Empresa()
+				.setNome(nomeEmpresa)
+				.setData(dataP);
 		if(dao.insereEmpresa(empresa)) {
 			request.setAttribute("nomeEmpresa", nomeEmpresa);
 		}else {

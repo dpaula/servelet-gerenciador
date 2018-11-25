@@ -17,6 +17,8 @@
 
 		<label for="novaEmpresa">Empresa:</label> 
 		<input type="text" name="nomeEmpresa" id="nomeEmpresa"> 
+		<label for="data">Data:</label> 
+		<input type="date" name="data" id="data"> 
 		<input type="submit" value="Cadastrar">
 	</form>
 
