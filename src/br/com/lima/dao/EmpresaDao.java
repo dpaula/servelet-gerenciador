@@ -57,4 +57,19 @@ public class EmpresaDao {
 		return empresa;
 	}
 
+	public void removeEmpresa(Integer id) {
+		EntityManager em = JPAUtil.getInstance().getEntityManager();
+		em.getTransaction().begin();
+		
+		//primeiro busca a empresa pelo id
+		Empresa empresa = em.find(Empresa.class, id);
+		//depois basta usar o EntityManager para remover
+		em.remove(empresa);
+		
+		
+		//comitando e fechando a transação
+		em.getTransaction().commit();
+		em.close();
+	}
+
 }
